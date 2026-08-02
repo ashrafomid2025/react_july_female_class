@@ -1,4 +1,4 @@
-export const listProducts = [
+export let listProducts = [
   {
     id: 1,
     name: "Apple",
