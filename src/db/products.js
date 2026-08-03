@@ -28,4 +28,25 @@ export let listProducts = [
     emoji: "🍊",
     details: "orange is also good",
   },
+  {
+    id: 5,
+    name: "Pear",
+    price: 120,
+    emoji: "🍐",
+    details: "orange is also good",
+  },
+  {
+    id: 6,
+    name: "Peach",
+    price: 180,
+    emoji: "🍑",
+    details: "orange is also good",
+  },
+  {
+    id: 7,
+    name: "Grapes",
+    price: 500,
+    emoji: "🍇",
+    details: "orange is also good",
+  },
 ];
