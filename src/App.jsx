@@ -1,67 +1,76 @@
-import { createContext, useEffect, useReducer, useRef, useState } from "react";
-import { listProducts } from "./db/products.js";
-import ProductCard from "./ProductCard.jsx";
+import { useReducer } from "react";
+
 export default function App() {
-  // useEffect(()=>{},[]);
-  const [fruitList, setFruitList] = useState(listProducts);
-  const [value, setValue] = useState("");
-  const [data, action] = useReducer(x, 330);
-  function x(data, action) {
-    if (action.type === "kam") {
-      return data + action.payload;
+  const [value, myFunction] = useReducer(c, 0);
+
+  function c(data, myFunc) {
+    if (myFunc.type === "+2") {
+      return data + myFunc.payload;
+    } else if (myFunc.type === "reset") {
+      return (data = 0);
     } else {
-      return data + action.payload;
+      return data - myFunc.payload;
     }
   }
 
-  // useEffect(() => {
-  //   setFruitList(
-  //     fruitList.filter((y) => {
-  //       y.name.toLowerCase().includes(value.toLowerCase());
-  //     }),
-  //   );
-  // }, [value]);
-  useEffect(() => {
-    const products = listProducts.filter((y) =>
-      y.name.toLowerCase().includes(value.toLowerCase()),
-    );
+  const [data, func] = useReducer(y, { name: "ahmad", lastName: "ahmadi" });
 
-    setFruitList(products);
-  }, [value]);
+  function y(data, func) {
+    if (func.type === "nam") {
+      return { ...data, name: func.payload };
+    } else {
+      return { ...data, lastName: func.payload };
+    }
+  }
+
+  function handleClick() {}
   return (
-    <div>
-      <h1>hi good afternoon</h1>
-
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-4 gap-5">
-        {fruitList.map((x) => {
-          return <ProductCard key={x.id} product={x} />;
-        })}
-      </div>
-      <div className="w-full max-w-6xl mx-auto my-8">
+    <>
+      <div className="w-full mb-8 max-w-5xl mx-auto grid grid-cols-2 gap-4">
         <input
-          value={value}
-          onChange={(hadisa) => setValue(hadisa.target.value)}
-          placeholder="Search..."
+          onChange={(e) => func({ type: "nam", payload: e.target.value })}
+          value={data.name}
           type="text"
-          className="border py-1.5 w-full"
+          placeholder="Enter your name"
+          className="w-full border py-1.5"
         />
-      </div>
+        <input
+          value={data.lastName}
+          onChange={(e) => func({ type: "lastName", payload: e.target.value })}
+          type="text"
+          placeholder="Enter your Last name"
+          className="w-full border py-1.5"
+        />
 
-      <div className="w-full max-w-6xl mx-auto my-8 flex gap-2 justify-between">
+        <div>
+          <h1 className="text-blue-500 border p-7 text-3xl">
+            Hi I am {data.name} {data.lastName}
+          </h1>
+        </div>
+      </div>
+      <hr />
+      <div className="w-full mt-8 max-w-5xl mx-auto flex justify-between gap-4">
         <button
-          onClick={() => action({ type: "zaiad", payload: 4 })}
-          className="py-2 px-8 bg-blue-500 text-white rounded-md"
+          onClick={() => myFunction({ type: "+2", payload: 2 })}
+          className="border py-2 px-8 rounded-xl"
         >
-          +4
+          +2
         </button>
-        <h1 className="text-5xl font-bold">{data}</h1>
+        <h1>{value}</h1>
         <button
-          onClick={() => action({ type: "kam", payload: 1 })}
-          className="py-2 px-8 bg-red-500 text-white rounded-md"
+          onClick={() => myFunction({ type: "decrease", payload: 1 })}
+          className="border py-2 px-8 rounded-xl"
         >
           -1
         </button>
+
+        <button
+          onClick={() => myFunction({ type: "reset" })}
+          className="border border-red-500 px-8 py-2 rounded-xl"
+        >
+          reset
+        </button>
       </div>
-    </div>
+    </>
   );
 }
