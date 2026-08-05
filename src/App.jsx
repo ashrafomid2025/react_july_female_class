@@ -1,6 +1,30 @@
-import { useReducer } from "react";
-
-import Example1 from "./Ex1";
+import { createContext } from "react";
+import Products from "./Products";
+import AboutPage from "./aboutPage";
+export const productContext = createContext();
+function App() {
+  const products = [
+    {
+      id: 1,
+      name: "Apple",
+      emoji: "🍎",
+    },
+    {
+      id: 2,
+      name: "Mango",
+      emoji: "🥭",
+    },
+    {
+      id: 1,
+      name: "Orange",
+      emoji: "🍊",
+    },
+    {
+      id: 1,
+      name: "Banana",
+      emoji: "🍌",
+    },
+  ];
 
 export default function App() {
   const [value, myFunction] = useReducer(c, 0);
