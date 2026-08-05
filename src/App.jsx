@@ -1,7 +1,10 @@
 import { useReducer } from "react";
 
+import Example1 from "./Ex1";
+
 export default function App() {
   const [value, myFunction] = useReducer(c, 0);
+  // useActionState form data get
 
   function c(data, myFunc) {
     if (myFunc.type === "+2") {
@@ -71,6 +74,8 @@ export default function App() {
           reset
         </button>
       </div>
+
+      <Example1 />
     </>
   );
 }
