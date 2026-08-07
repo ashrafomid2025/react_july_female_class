@@ -1,39 +1,46 @@
 import { useActionState } from "react";
-function x(prevData, formData) {
-  return {
-    information: `سلام من در این تاریخ 
-        ${formData.get("dob")}
 
-        متولد شده ام
-        `,
+function i(prevState, formData) {
+  return {
+    name: formData.get("name"),
+    age: formData.get("age"),
   };
 }
 
-export default function Example1() {
-  const [value, func, loading] = useActionState(x, { information: "" });
+export default function Example2() {
+  const [data, func] = useActionState(i, {
+    name: "",
+    age: "",
+  });
   return (
-    <div className="w-full max-w-5xl mx-auto p-5 border rounded-2xl shadow-2xl my-5">
-      <h1 className="text-center text-4xl font-semibold">registeration form</h1>
-      <form action={func} className="w-full p-8  flex flex-col gap-4">
+    <div className="w-full max-w-5xl mx-auto my-8 border p-8">
+      <h1 className="uppercase font-bold text-4xl text-center">
+        my personal Infomration
+      </h1>
+      <form action={func} className="w-full p-4 flex flex-col gap-2">
         <input
-          type="date"
-          name="dob"
-          placeholder="Enter your name"
-          className="w-full border py-1.5"
+          className="py-1.5 w-full border focus:outline-0"
+          type="text"
+          placeholder="Name"
+          name="name"
+        />
+        <input
+          className="py-1.5 w-full border focus:outline-0"
+          type="number"
+          placeholder="Age"
+          name="age"
         />
         <button
           type="submit"
-          className="w-full bg-linear-to-tr from-blue-400 to-purple-700 text-white py-2.5 rounded-md
-        "
+          className="w-full py-2 bg-purple-600 text-white rounded-2xl"
         >
-          {loading ? "please wait..." : "Save"}
+          Save
         </button>
       </form>
-
-      {value.information && (
+      {data.name && data.age && (
         <div>
-          <h1 className="text-center text-5xl font-bold">
-            {value.information}
+          <h1>
+            Salaam, I am {data.name} and I am {data.age} years old
           </h1>
         </div>
       )}

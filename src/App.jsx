@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-import Example1 from "./Ex1";
+import Example2 from "./Ex1";
 
 export default function App() {
   const [value, myFunction] = useReducer(c, 0);
@@ -75,7 +75,7 @@ export default function App() {
         </button>
       </div>
 
-      <Example1 />
+      <Example2 />
     </>
   );
 }
