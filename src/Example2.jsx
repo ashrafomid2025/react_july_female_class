@@ -2,36 +2,41 @@ import { useState, useTransition } from "react";
 
 export default function Example2() {
   const [value, setValue] = useState("");
-  //   useTransition => responsivness appllication => data
   const [list, setList] = useState([]);
-  const [loading, StartTransition] = useTransition();
-  function hanldeChange(e) {
+  const [entizar, func] = useTransition();
+
+  function handleClick(e) {
     setValue(e.target.value);
     const l = [];
-    StartTransition(() => {
-      for (let i = 0; i < 20000; i++) {
+    func(() => {
+      for (let i = 0; i < 10000; i++) {
         l.push(e.target.value);
       }
       setList(l);
     });
   }
-
   return (
-    <div className="w-full max-w-5xl mx-auto p-9 border">
+    <div className="w-full max-w-6xl mx-auto">
       <input
+        className="border w-full py-2 my-8"
         type="text"
-        className="border py-2 w-full"
         value={value}
-        onChange={(e) => hanldeChange(e)}
+        onChange={(e) => handleClick(e)}
       />
 
-      <div className="w-full flex flex-col gap-0.5">
-        {loading ? (
+      <div>
+        {entizar ? (
           <div>
-            <h1>please wait....</h1>
+            <h1 className="text-5xl">
+              لطفا منتظر باشید، اطلاعات شما در حال پروسس است
+            </h1>
           </div>
         ) : (
-          list.map((x, index) => <div key={index}>{x}</div>)
+          list.map((x, index) => (
+            <div key={index}>
+              <h1 className="text-amber-500 text-3xl font-bold">{x}</h1>
+            </div>
+          ))
         )}
       </div>
     </div>
