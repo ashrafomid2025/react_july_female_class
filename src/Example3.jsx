@@ -1,38 +1,37 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export default function Example3() {
-  const [dark, setDark] = useState(false);
+  const [light, setLight] = useState(true);
   const [count, setCount] = useState(0);
-  function expensiveFunction() {
-    console.log("function started its work");
-    for (let i = 0; i < 1000000000; i++) {}
-    return count * 2;
-  }
 
-  const result = useMemo(expensiveFunction, [count]);
+  const timeConsumingFunction = useCallback(() => {
+    console.log("من در حال اجرا هستم");
+    for (let i = 0; i < 3000000000; i++) {}
+
+    return count;
+  }, [count]);
 
   return (
     <div
-      className={`w-full p-12 h-screen ${dark ? "bg-black  text-white" : "bg-white text-black"}`}
+      className={`w-full h-screen py-28 ${light ? "bg-white text-black" : "bg-black text-white"}`}
     >
-      <div className="w-full max-w-4xl mx-auto ">
+      <div className="w-full max-w-6xl mx-auto flex flex-col gap-4">
         <button
-          onClick={() => setDark(!dark)}
-          className="py-2 px-8 bg-red-500 text-white"
+          onClick={() => setLight(!light)}
+          className="py-2 px-8 bg-blue-600 text-white rounded-2xl"
         >
           Toggle theme
         </button>
-        <div>
-          <button
-            className="bg-blue-500 text-white py-2 px-8 my-7"
-            onClick={() => setCount(count + 2)}
-          >
-            increament
-          </button>
-        </div>
-        <div>
-          <h1>{result}</h1>
-        </div>
+        <button
+          onClick={() => setCount(count + 2)}
+          className="py-2 px-8 bg-purple-600 text-white rounded-2xl"
+        >
+          +2
+        </button>
+
+        <h1 className="text-center text-4xl font-bold text-purple-700">
+          {timeConsumingFunction()}
+        </h1>
       </div>
     </div>
   );
