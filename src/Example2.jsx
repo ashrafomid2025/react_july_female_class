@@ -1,44 +1,51 @@
-import { useState, useTransition } from "react";
+import React, { useId, useRef } from "react";
 
-export default function Example2() {
-  const [value, setValue] = useState("");
-  const [list, setList] = useState([]);
-  const [entizar, func] = useTransition();
+function Example2() {
+  const myAudio = useRef(null);
+  function handlePlay() {
+    myAudio.current.play();
+  }
+  function handlePause() {
+    myAudio.current.pause();
+  }
 
-  function handleClick(e) {
-    setValue(e.target.value);
-    const l = [];
-    func(() => {
-      for (let i = 0; i < 10000; i++) {
-        l.push(e.target.value);
-      }
-      setList(l);
-    });
+  function handleRestart() {
+    myAudio.current.currentTime = 0;
+    myAudio.current.play();
   }
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <input
-        className="border w-full py-2 my-8"
-        type="text"
-        value={value}
-        onChange={(e) => handleClick(e)}
-      />
+    <div className="w-full max-w-6xl mx-auto my-4">
+      <div className="w-full flex justify-center items-center">
+        <audio
+          className="w-1/2"
+          ref={myAudio}
+          src="./songs/aron.mp3"
+          controls
+        />
+      </div>
 
-      <div>
-        {entizar ? (
-          <div>
-            <h1 className="text-5xl">
-              لطفا منتظر باشید، اطلاعات شما در حال پروسس است
-            </h1>
-          </div>
-        ) : (
-          list.map((x, index) => (
-            <div key={index}>
-              <h1 className="text-amber-500 text-3xl font-bold">{x}</h1>
-            </div>
-          ))
-        )}
+      <div className="w-full my-4 flex justify-between gap-2">
+        <button
+          onClick={handlePlay}
+          className="bg-blue-500 text-white rounded-md py-2 px-8"
+        >
+          Play
+        </button>
+        <button
+          onClick={handlePause}
+          className="bg-red-500 text-white rounded-md py-2 px-8"
+        >
+          Pause
+        </button>
+        <button
+          onClick={handleRestart}
+          className="border  rounded-md py-2 px-8"
+        >
+          Restart
+        </button>
       </div>
     </div>
   );
 }
+
+export default Example2;
