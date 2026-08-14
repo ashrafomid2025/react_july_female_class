@@ -4,7 +4,7 @@ import Example3 from "./Example3";
 export default function App() {
   return (
     <div>
-      <Example3 />
+      <Example2 />
     </div>
   );
 }
